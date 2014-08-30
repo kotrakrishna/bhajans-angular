@@ -1,0 +1,39 @@
+<div class="container theme-showcase row" role="main">
+    <div class="col-md-4">
+        <div class="page-header">
+            <h1>{{content.title}}</h1>
+        </div>
+        <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Explain</button>
+        <div ng-repeat="section in content.content">
+            <br/>
+
+            <div>{{section.section}}:</div>
+            <div ng-repeat="stanza in section.stanzas">
+                <div ng-repeat="line in stanza.stanza">
+                    <div>{{line.line}}</div>
+                    <div collapse="isCollapsed" ng-if="line.derivation">
+                        <div class="meaning alert alert-info">
+                            <div ng-repeat="(word, wordMeaning) in line.derivation">
+                                {{word}} : {{wordMeaning}}
+                            </div>
+                            <br/>
+
+                            <div>{{line.meaning}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div collapse="isCollapsed" ng-if="stanza.derivation">
+                    <div class="meaning alert alert-info">
+                        <div ng-repeat="(word, wordMeaning) in stanza.derivation">
+                            {{word}} : {{wordMeaning}}
+                        </div>
+                        <br/>
+
+                        <div>{{stanza.meaning}}</div>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>
