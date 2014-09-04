@@ -19,7 +19,8 @@ module.exports = function (grunt) {
                     'bootstrap/dist/css/bootstrap-theme.min.css',
                     'html5-boilerplate/js/vendor/modernizr-2.6.2.min.js',
                     'angular/angular.js',
-                    'angular-route/angular-route.js'
+                    'angular-route/angular-route.js',
+                    'angular-bootstrap/ui-bootstrap-tpls.min.js'
                 ],
                 dest: 'build/bower_components',
                 expand: true
