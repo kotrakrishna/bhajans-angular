@@ -1,0 +1,241 @@
+<div ng-controller="JsonBuilder" class="row">
+<div class="json-builder-form col-md-6">
+<div style="padding: 15px;">
+<div>
+    <div class="form-horizontal row" role="form">
+        <div class="form-group">
+            <label for="deity" class="col-md-3 control-label">Deity</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="deity"
+                       ng-model="composition.deity">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="genre" class="col-md-3 control-label">Genre</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="genre"
+                       ng-model="composition.genre">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="originalLanguage" class="col-md-3 control-label">Original language</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="originalLanguage"
+                       ng-model="composition.originalLanguage">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="author" class="col-md-3 control-label">Author</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="author"
+                       ng-model="composition.author">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="script" class="col-md-3 control-label">Display script</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="script"
+                       ng-model="composition.displayScript">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id" class="col-md-3 control-label">ID</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="id"
+                       ng-model="composition.id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title" class="col-md-3 control-label">Title</label>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="title"
+                       ng-model="composition.title">
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <h3>Content
+        <small><a ng-click="addSection()" href="">+ section</a></small>
+    </h3>
+</div>
+<div>
+    <div ng-repeat="(sectionKey, section) in composition.content">
+        <hr>
+        <div class="alert alert-success">
+            <h4 style="margin-bottom: 0;">{{section.sectionName}}
+                <small>
+                    <a ng-click="addStanza(section)" href="">+ stanza</a>
+                    <a ng-click="deleteIndex(composition.content, sectionKey)" href=""
+                       style="color:red;margin-left: 20px;">x delete</a>
+                </small>
+            </h4>
+        </div>
+        <div class="form-horizontal row" role="form">
+            <div class="form-group">
+                <label for="{{sectionKey}}-sectionName" class="col-md-3 control-label">Section name</label>
+
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="{{sectionKey}}-sectionName"
+                           ng-model="section.sectionName">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div ng-repeat="(stanzaKey, stanza) in section.stanzas">
+                <hr>
+                <div>
+                    <h4>Stanza {{stanzaKey + 1}}
+                        <small><a ng-click="addLine(stanza)" href="">+ line</a>
+                            <a ng-click="addKey(stanza, 'taatparyam')" href=""
+                               style="margin-left: 20px;">+ Taatparyam</a>
+                            <a ng-click="deleteStanza(section, stanzaKey)" href=""
+                               style="color:red;margin-left: 20px;">x delete</a>
+                        </small>
+                    </h4>
+                </div>
+                <div ng-repeat="(lineKey, line) in stanza.lines">
+                    <div class="form-horizontal row" role="form">
+                        <div class="form-group">
+                            <label for="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-line"
+                                   class="col-md-4 control-label">Line {{lineKey +1}}</label>
+
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       id="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-line"
+                                       ng-model="line.line">
+
+                                <div>
+                                    <small>
+                                        <a ng-click="addKey(line, 'taatparyam')" href=""
+                                                >+ Taatparyam</a>
+                                        <a ng-click="addKey(line,'pratipadaartham')" href=""
+                                                >+ Pratipadaartham</a>
+                                        <a ng-click="addKey(line, 'sandhi')" href=""
+                                                >+ Sandhi</a>
+                                        <a ng-click="addKey(line, 'samaasa')" href=""
+                                                >+ Samaasa</a>
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div>
+                                    <small>
+                                        <a ng-click="deleteLine(stanza, lineKey)" href=""
+                                           style="color:red;">x delete</a>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="line.pratipadaartham == '' || line.pratipadaartham">
+                            <label for="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-taatparyam"
+                                   class="col-md-4 control-label">Pratipadaartham {{lineKey +1}}</label>
+
+                            <div class="col-md-7">
+                                <textarea class="form-control"
+                                          id="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-pratipadaartham"
+                                          ng-model="line.pratipadaartham"></textarea>
+                            </div>
+                            <div class="pull-left">
+                                <div>
+                                    <small>
+                                        <a ng-click="deleteKey(line, 'pratipadaartham')" href=""
+                                           style="color:red;">x delete</a></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="line.taatparyam == '' || line.taatparyam">
+                            <label for="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-taatparyam"
+                                   class="col-md-4 control-label">Taatparyam {{lineKey +1}}</label>
+
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       id="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-taatparyam"
+                                       ng-model="line.taatparyam">
+                            </div>
+                            <div class="pull-left">
+                                <div>
+                                    <small>
+                                        <a ng-click="deleteKey(line, 'taatparyam')" href=""
+                                           style="color:red;">x delete</a></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="line.sandhi == '' || line.sandhi">
+                            <label for="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-sandhi"
+                                   class="col-md-4 control-label">Sandhi {{lineKey +1}}</label>
+
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       id="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-sandhi"
+                                       ng-model="line.sandhi">
+                            </div>
+                            <div class="pull-left">
+                                <div>
+                                    <small>
+                                        <a ng-click="deleteKey(line, 'sandhi')" href=""
+                                           style="color:red;">x delete</a></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="line.samaasa == '' || line.samaasa">
+                            <label for="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-samaasa"
+                                   class="col-md-4 control-label">Sammasa {{lineKey +1}}</label>
+
+                            <div class="col-md-7">
+                                <input type="text" class="form-control"
+                                       id="{{sectionKey}}-{{stanzaKey}}-{{lineKey}}-samaasa"
+                                       ng-model="line.samaasa">
+                            </div>
+                            <div class="pull-left">
+                                <div>
+                                    <small>
+                                        <a ng-click="deleteKey(line, 'samaasa')" href=""
+                                           style="color:red;">x delete</a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-horizontal row" role="form">
+                    <div class="form-group" ng-show="stanza.taatparyam == '' || stanza.taatparyam">
+                        <label for="{{sectionKey}}-{{stanzaKey}}-taatparyam"
+                               class="col-md-4 control-label">Stanza taatparyam</label>
+
+                        <div class="col-md-7">
+                            <input type="text" class="form-control"
+                                   id="{{sectionKey}}-{{stanzaKey}}-taatparyam"
+                                   ng-model="stanza.taatparyam">
+                        </div>
+                        <div class="pull-left">
+                            <div>
+                                <small>
+                                    <a ng-click="deleteKey(stanza, 'taatparyam')" href=""
+                                       style="color:red;">x delete</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="json-builder-output col-md-6">
+    <div style="padding: 15px;">
+        <pre>{{composition | json}}</pre>
+    </div>
+</div>
+</div>

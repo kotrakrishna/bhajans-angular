@@ -11,5 +11,6 @@ angular.module('myApp', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/content', {templateUrl: 'partials/content.html', controller: 'Stotras'});
-  $routeProvider.otherwise({redirectTo: '/content'});
+  $routeProvider.when('/jsonBuilder', {templateUrl: 'partials/jsonBuilder.html', controller: 'JsonBuilder'});
+  $routeProvider.otherwise({redirectTo: '/jsonBuilder'});
 }]);

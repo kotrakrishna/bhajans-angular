@@ -6,8 +6,65 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
     .controller('MyCtrl1', ['$scope', function ($scope) {
 
     }])
-    .controller('MyCtrl2', ['$scope', function ($scope) {
+    .controller('JsonBuilder', ['$scope', function ($scope) {
+        $scope.master = {};
 
+        $scope.update = function (composition) {
+            $scope.master = angular.copy(composition);
+        };
+
+        $scope.reset = function () {
+            $scope.composition = angular.copy($scope.master);
+        };
+
+        $scope.addSection = function () {
+            $scope.composition.content = $scope.composition.content || [];
+            $scope.composition.content.push({});
+        };
+
+        $scope.addStanza = function (section) {
+            section.stanzas = section.stanzas || [];
+            section.stanzas.push({
+                lines: [
+                    {
+                        line: ""
+                    },
+                    {
+                        line: ""
+                    }
+                ]
+            });
+        };
+
+        $scope.deleteStanza = function (section, stanzaKey) {
+            section.stanzas.splice(stanzaKey, 1);
+        };
+        $scope.deleteLine = function (stanza, lineKey) {
+            stanza.lines.splice(lineKey, 1);
+        };
+
+        $scope.addLine = function (stanza) {
+            stanza.lines.push({
+                line: ""
+            });
+        };
+
+        $scope.addKey = function (object, key) {
+            object[key] = "";
+        };
+
+        $scope.addObject = function (object, key) {
+            object[key] = {};
+        };
+
+        $scope.deleteKey = function (object, key) {
+            delete object[key];
+        };
+
+        $scope.deleteIndex = function (arr, index) {
+            arr.splice(index, 1);
+        };
+        $scope.reset();
     }])
     .controller('Stotras', function ($scope) {
         $scope.isCollapsed = true;
@@ -37,7 +94,7 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
                                 },
                                 {
                                     "line": "సచ్చిదానంద దత్త మూరుతి",
-                                    "meaning": "This has no derivation but just meaning of this line"
+                                    "meaning": "This has no derivation but just taatparyam of this line"
                                 }
                             ]
                         }
