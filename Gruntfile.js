@@ -41,6 +41,13 @@ module.exports = function (grunt) {
                     hostname: 'localhost'
                 }
             }
+        },
+
+        watch: {
+            copy: {
+                files: [ 'src/**' ],
+                tasks: [ 'build' ]
+            }
         }
 
     });
@@ -49,6 +56,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // define the tasks
     // define the tasks
